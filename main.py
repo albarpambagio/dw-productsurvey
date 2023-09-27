@@ -23,7 +23,11 @@ question_order = [
 kotak_1['Questions'] = pd.Categorical(kotak_1['Questions'], categories=question_order, ordered=True)
 kotak_2 = kotak_1.sort_values(by= ["user_phone", "Questions"])
 
-
+for i in kotak_2:
+    if kotak_2["Responses"] == "A" where kotak_2["Responses"]:
+        choice = 1
+    else:
+        choice = 0
 
 """
 # variasi opsi soal 1
