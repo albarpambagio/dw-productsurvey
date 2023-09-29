@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 # Read the survey data
 df = pd.read_csv("conjoint_survey_ads.csv")
@@ -44,71 +43,42 @@ kotak_2 = kotak_1.sort_values(by=["user_phone", "Questions"])
 # Create a list to store choices
 choices = []
 
-# Define DataFrame for question 1 choices
-df_2_q1 = pd.DataFrame({
-    "skill": ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"],
-    "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
-    "harga_program": ["500.000", "350.000", "350.000"]
-})
+# Define DataFrames for question choices
+question_choices = {
+    'soal_1': ['A', 'B', 'C', 'D'],
+    'soal_2': ['A', 'B', 'C', 'D'],
+    'soal_3': ['A', 'B', 'C', 'D'],
+    'soal_4': ['A', 'B', 'C', 'D'],
+    'soal_5': ['A', 'B', 'C', 'D'],
+    'soal_6': ['A', 'B', 'C', 'D'],
+    'soal_7': ['A', 'B', 'C', 'D'],
+    'soal_8': ['A', 'B', 'C', 'D'],
+    'soal_9': ['A', 'B', 'C', 'D'],
+    'soal_10': ['A', 'B', 'C', 'D']
+}
 
-# Debugging: Check for mismatched 'Responses' values
-mismatched_responses_q1 = kotak_2[~kotak_2['Responses'].isin(df_2_q1['skill'])]
-print("Mismatched Responses (Question 1):")
-print(mismatched_responses_q1)
+# Count responses for each question and user_phone
+for user_phone in kotak_2['user_phone'].unique():
+    user_data = kotak_2[kotak_2['user_phone'] == user_phone]
+    user_choices = {}
+    
+    for question, options in question_choices.items():
+        user_choices[question] = {option: 0 for option in options}
+    
+    for _, row in user_data.iterrows():
+        response = row['Responses']
+        question = row['Questions']
+        
+        if response in question_choices[question]:
+            user_choices[question][response] += 1
+    
+    choices.append({
+        'user_phone': user_phone,
+        **{f"{question}_count": user_choices[question][response] for question in question_choices for response in question_choices[question]}
+    })
 
-# Merge DataFrame for question 1 and fill missing values with NaN
-merged_df_q1 = kotak_2.merge(df_2_q1, left_on='Responses', right_on='skill', how='left')
-
-# Rename columns for question 1
-merged_df_q1.rename(columns={
-    'skill': 'jenis_program_satu',
-    'bentuk_program': 'metode_program_satu',
-    'harga_program': 'harga_program_satu'
-}, inplace=True)
-
-# Debugging: Check for mismatched 'Responses' values after merging
-mismatched_responses_q1_after_merge = merged_df_q1[merged_df_q1['jenis_program_satu'].isna()]
-print("Mismatched Responses After Merge (Question 1):")
-print(mismatched_responses_q1_after_merge)
-
-# Add the 'Choice' column based on the 'Responses' column for question 1
-merged_df_q1['Choice'] = merged_df_q1['Responses'].apply(lambda x: 1 if 'A' in x or 'A, B' in x or 'A, C' in x else 0)
-
-# Define DataFrame for question 2 choices
-df_2_q2 = pd.DataFrame({
-    "skill": ["Create Analytics Dashboard", "Design Data Pipeline", "Perform Customer Segmentation"],
-    "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
-    "harga_program": ["500.000", "300.000", "550.000"]
-})
-
-# Debugging: Check for mismatched 'Responses' values
-mismatched_responses_q2 = kotak_2[~kotak_2['Responses'].isin(df_2_q2['skill'])]
-print("\nMismatched Responses (Question 2):")
-print(mismatched_responses_q2)
-
-# Merge DataFrame for question 2 and fill missing values with NaN
-merged_df_q2 = kotak_2.merge(df_2_q2, left_on='Responses', right_on='skill', how='left')
-
-# Rename columns for question 2
-merged_df_q2.rename(columns={
-    'skill': 'jenis_program_dua',
-    'bentuk_program': 'metode_program_dua',
-    'harga_program': 'harga_program_dua'
-}, inplace=True)
-
-# Debugging: Check for mismatched 'Responses' values after merging
-mismatched_responses_q2_after_merge = merged_df_q2[merged_df_q2['jenis_program_dua'].isna()]
-print("\nMismatched Responses After Merge (Question 2):")
-print(mismatched_responses_q2_after_merge)
-
-# Add the 'Choice' column based on the 'Responses' column for question 2
-merged_df_q2['Choice'] = merged_df_q2['Responses'].apply(lambda x: 1 if 'A' in x or 'A, B' in x or 'A, C' in x else 0)
-
-# Concatenate both question 1 and question 2 DataFrames
-final_merged_df = pd.concat([merged_df_q1, merged_df_q2], ignore_index=True)
-
-# Sort the final DataFrame
-final_merged_df.sort_values(by=["user_phone", "Questions"], inplace=True)
+# Create the final DataFrame
+choices_df = pd.DataFrame(choices)
 
 # Print the final DataFrame
-print(final_merged_df)
+print(choices_df)
