@@ -22,8 +22,12 @@ question_order = [
     'soal_6', 'soal_7', 'soal_8', 'soal_9', 'soal_10']
 kotak_1['Questions'] = pd.Categorical(kotak_1['Questions'], categories=question_order, ordered=True)
 kotak_2 = kotak_1.sort_values(by= ["user_phone", "Questions"])
-kotak_2['Responses'].str.split()
+# kotak_2['Responses'].str.split(', ')
 kotak_2["Responses"].replace({"D. Tidak memilih semua product": "D"}, inplace=True)
+
+kotak_2['Individual_Responses'] = kotak_2['Responses'].str.split(', ')
+kotak_2['Individual_Responses'] = kotak_2['Individual_Responses'].apply(lambda x: ', '.join(x))
+
 
 choice = []
 
