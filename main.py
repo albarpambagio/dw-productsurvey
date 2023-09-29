@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 df = pd.read_csv("C:\\Users\\albar\\Documents\\GitHub\\dw-productsurvey\\conjoint_survey_ads.csv")
 ds = pd.read_csv("C:\\Users\\albar\\Documents\\GitHub\\dw-productsurvey\\conjoint_survey_organic.xlsx - Sheet1.csv")
@@ -22,12 +23,53 @@ question_order = [
     'soal_6', 'soal_7', 'soal_8', 'soal_9', 'soal_10']
 kotak_1['Questions'] = pd.Categorical(kotak_1['Questions'], categories=question_order, ordered=True)
 kotak_2 = kotak_1.sort_values(by= ["user_phone", "Questions"])
+choice = []
 
-for i in kotak_2:
-    if kotak_2["Responses"] == "A" where kotak_2["Responses"]:
-        choice = 1
+
+df_2_q1 = pd.DataFrame({"skill" : ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"], 
+          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
+          "harga_program": ["500.000", "350.000", "350.000"]})
+
+df_2_q1 = pd.DataFrame({"skill" : ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"], 
+          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
+          "harga_program": ["500.000", "350.000", "350.000"]})
+
+df_2_q2 = pd.DataFrame({"skill" : ["Create Analytics Dashboard", "Design Data Pipeline", "Perform Customer Segmentation"], 
+          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
+          "harga_program": ["500.000", "300.000", "550.000"]})
+
+df_2_q3 = pd.DataFrame({"skill" : ["Perform Customer Segmentation", "Design Data Pipeline", "Perform Customer Segmentation"], 
+          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
+          "harga_program": ["500.000", "300.000", "550.000"]})
+
+for index, row in kotak_2.iterrows():
+    response = row["Responses"]
+    if 'A' in response or 'A, B' in response or 'A, C' in response:
+        choice.append(1)
+    elif response == 'B':
+        choice.append(1)
+    elif response == 'C':
+        choice.append(1)
     else:
-        choice = 0
+        choice.append(0)
+
+    
+kotak_2['choice'] = choice
+print(kotak_2)
+
+'''
+for x in kotak_2.iterrows():
+    if x["Responses"] == 'A':
+        wadah.append(1)
+    elif x["Responses"] == 'B':
+        wadah.append(1)
+    elif x["Responses"] == 'C':
+        wadah.append(1)
+    else:
+        wadah.append(0)
+'''
+
+
 
 """
 # variasi opsi soal 1
@@ -36,4 +78,18 @@ soalSatuA = {"skill" : "Create Analytics Dashboard", "bentuk_program": "Tutorial
 soalSatuB = {"skill" : "Perform Customer Segmentation", "bentuk_program": "Mentoring Based","harga_program": "350.000"}
 soalSatuC = {"skill" : "Design AB Test Experimentation", "bentuk_program": "Mentoring Based","harga_program": "300.000"}
 
+"""
+
+
+"""
+soalSatuA = ["Create Analytics Dashboard", "Tutorial Based", "500.000"]
+soalSatuB = ["Perform Customer Segmentation", "Mentoring Based", "350.000"]
+soalSatuC = ["Design AB Test Experimentation", "Mentoring Based", "300.000"]
+"""
+
+
+"""
+jenis_program_satu = ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"]
+metode_program_satu = ["Tutorial Based", "Mentoring Based", "Mentoring Based"]
+harga_program_satu = ["500.000", "350.000", "300.000"]
 """
