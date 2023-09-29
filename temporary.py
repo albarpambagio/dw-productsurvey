@@ -34,6 +34,39 @@ question_order = [
     'soal_6', 'soal_7', 'soal_8', 'soal_9', 'soal_10'
 ]
 
+df_2_q1 = pd.DataFrame({"skill" : ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"], 
+          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
+          "harga_program": ["500.000", "350.000", "350.000"]})
+
+
+df_2_q1 = pd.DataFrame({"skill" : ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"], 
+          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
+          "harga_program": ["500.000", "350.000", "350.000"]})
+
+df_2_q2 = pd.DataFrame({"skill" : ["Create Analytics Dashboard", "Design Data Pipeline", "Perform Customer Segmentation"], 
+          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
+          "harga_program": ["500.000", "300.000", "550.000"]})
+
+df_2_q3 = pd.DataFrame({"skill" : ["Perform Customer Segmentation", "Design Data Pipeline", "Perform Customer Segmentation"], 
+          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
+          "harga_program": ["500.000", "300.000", "550.000"]})
+df_2_q1 = pd.DataFrame({"skill" : ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"], 
+          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
+          "harga_program": ["500.000", "350.000", "350.000"]})
+
+
+df_2_q1 = pd.DataFrame({"skill" : ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"], 
+          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
+          "harga_program": ["500.000", "350.000", "350.000"]})
+
+df_2_q2 = pd.DataFrame({"skill" : ["Create Analytics Dashboard", "Design Data Pipeline", "Perform Customer Segmentation"], 
+          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
+          "harga_program": ["500.000", "300.000", "550.000"]})
+
+df_2_q3 = pd.DataFrame({"skill" : ["Perform Customer Segmentation", "Design Data Pipeline", "Perform Customer Segmentation"], 
+          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
+          "harga_program": ["500.000", "300.000", "550.000"]})
+
 # Categorize the "Questions" column
 kotak_1['Questions'] = pd.Categorical(kotak_1['Questions'], categories=question_order, ordered=True)
 
@@ -48,25 +81,6 @@ kotak_2['Responses'] = kotak_2['Responses'].str.split(', ').apply(lambda x: ', '
 
 # Create a list to store choices
 choice = []
-
-# Define dataframes for questions
-df_2_q1 = pd.DataFrame({
-    "skill": ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"],
-    "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
-    "harga_program": ["500.000", "350.000", "350.000"]
-})
-
-df_2_q2 = pd.DataFrame({
-    "skill": ["Create Analytics Dashboard", "Design Data Pipeline", "Perform Customer Segmentation"],
-    "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
-    "harga_program": ["500.000", "300.000", "550.000"]
-})
-
-df_2_q3 = pd.DataFrame({
-    "skill": ["Perform Customer Segmentation", "Design Data Pipeline", "Perform Customer Segmentation"],
-    "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
-    "harga_program": ["500.000", "300.000", "550.000"]
-})
 
 # Iterate through the rows and assign choices
 for index, row in kotak_2.iterrows():
@@ -83,8 +97,10 @@ for index, row in kotak_2.iterrows():
 # Add the choice column to kotak_2
 kotak_2['choice'] = choice
 
-# Merge kotak_2 with df_2_q1 based on the "skill" column
-merge = kotak_2.merge(df_2_q1, on="skill", how="left")
+combined_df = pd.concat([kotak_2, df_2_q1], axis=0)
 
-# Display the merged DataFrame
-print(merge)
+# Reset the index if needed
+combined_df.reset_index(drop=True, inplace=True)
+
+# Print the combined dataframe
+print(combined_df)
