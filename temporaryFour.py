@@ -27,13 +27,23 @@ kotak_2['Responses'] = kotak_2['Responses'].str.split(', ').apply(lambda x: ', '
 
 choice = []
 
+df_2_q1 = pd.DataFrame({"opsi": ["A", "B", "C"],
+                       "skill": ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"],
+                       "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
+                       "harga_program": ["500.000", "350.000", "350.000"]})
 
-df_2_q1 = pd.DataFrame({"opsi" : ["A", "B", "C"],
-          "skill" : ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"], 
-          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
-          "harga_program": ["500.000", "350.000", "350.000"]})
-        
-
+for index_kotak, row_kotak in kotak_2.iterrows():
+    response = row_kotak["Responses"]
+    match_found = False  # Flag to track if a match is found for this row
+    for index_df, row_df in df_2_q1.iterrows():
+        opsi = row_df["opsi"]
+        if opsi in response.split(', '):  # Check if opsi is in the list of responses
+            match_found = True  # Set the flag to True if a match is found
+            break  # Exit the inner loop once a match is found
+    if match_found:
+        choice.append(1)
+    else:
+        choice.append(0)
 
 # Add the 'choice' column to kotak_2
 kotak_2['choice'] = choice
@@ -41,12 +51,8 @@ kotak_2['choice'] = choice
 # Reset indices of both dataframes
 kotak_2.reset_index(drop=True, inplace=True)
 
-# Concatenate kotak_2 and df_2_q1
-final_result = pd.concat([kotak_2, df_2_q1], axis=1)
-
 # Print the final result
-print(final_result)
-
+print(kotak_2)
 
 '''
 for index, row_kotak in kotak_2.iterrows():
