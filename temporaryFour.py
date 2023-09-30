@@ -32,6 +32,57 @@ df_2_q1 = pd.DataFrame({"opsi": ["A", "B", "C"],
                        "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
                        "harga_program": ["500.000", "350.000", "350.000"]})
 
+for i in 
+for index, row_kotak in kotak_2.iterrows():
+    response = row_kotak["Responses"]
+    match_found = False  # Flag to track if a match is found for this row
+    for index_df, row_df in df_2_q1.iterrows():
+        opsi = row_df["opsi"]
+        if opsi in response.split(', '):  # Check if opsi is in the list of responses
+            match_found = True  # Set the flag to True if a match is found
+            #break  # Exit the inner loop once a match is found
+    if match_found:
+        choice.append(1)
+    else:
+        choice.append(0)
+
+# Add the 'choice' column to kotak_2
+kotak_2['choice'] = choice
+
+# Reset indices of both dataframes
+kotak_2.reset_index(drop=True, inplace=True)
+
+# Concatenate kotak_2 and df_2_q1
+final_result = pd.concat([kotak_2, df_2_q1], axis=1)
+print(final_result)
+
+'''
+for index_kotak, row_kotak in kotak_2.iterrows():
+    response = row_kotak["Responses"]
+    match_found = False  # Flag to track if a match is found for this row
+    iterations = 0  # Track the number of iterations
+    for index_df, row_df in df_2_q1.iterrows():
+        opsi = row_df["opsi"]
+        if opsi in response.split(', '):  # Check if opsi is in the list of responses
+            match_found = True  # Set the flag to True if a match is found
+            break  # Exit the inner loop once a match is found
+        iterations += 1
+        if iterations >= max_iterations:
+            break  # Exit the inner loop if maximum iterations reached
+    if match_found:
+        choice.append(1)
+    else:
+        choice.append(0)
+'''
+
+'''
+choice = []
+
+df_2_q1 = pd.DataFrame({"opsi": ["A", "B", "C"],
+                       "skill": ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"],
+                       "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
+                       "harga_program": ["500.000", "350.000", "350.000"]})
+
 for index_kotak, row_kotak in kotak_2.iterrows():
     response = row_kotak["Responses"]
     match_found = False  # Flag to track if a match is found for this row
@@ -53,7 +104,7 @@ kotak_2.reset_index(drop=True, inplace=True)
 
 # Print the final result
 print(kotak_2)
-
+'''
 '''
 for index, row_kotak in kotak_2.iterrows():
     response = row_kotak["Responses"]
@@ -162,3 +213,8 @@ for index, row_kotak in kotak_2.iterrows():
     else:
         choice.append(0)
 '''
+
+        user_phone Questions Responses  choice opsi                           skill   bentuk_program harga_program
+0     05xx61268xxx    soal_1         A       1    A      Create Analytics Dashboard   Tutorial Based       500.000
+1     05xx61268xxx    soal_1         A       0    B   Perform Customer Segmentation  Mentoring Based       350.000
+2     05xx61268xxx    soal_1         A       0    C  Design AB Test Experimentation  Mentoring Based       350.000
