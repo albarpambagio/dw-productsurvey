@@ -35,11 +35,16 @@ df_2_q1 = pd.DataFrame({"opsi" : ["A", "B", "C"],
         
 for index, row_kotak in kotak_2.iterrows():
     response = row_kotak["Responses"]
-    # Check if the response exists in df_2_q1['opsi']
-    if response in df_2_q1['opsi'].values:
-        choice.append(1)
-    else:
-        choice.append(0)
+    match_found = False  # Flag to track if a match is found for this row
+    for index, row_df in df_2_q1.iterrows():
+        opsi = row_df["opsi"]
+        if opsi in response.split(', '):  # Check if opsi is in the list of responses
+            choice.append(1)
+            match_found = True  # Set the flag to True if a match is found
+            break  # Exit the inner loop once a match is found
+    if not match_found:
+        choice.append(0) 
+
 
 # Add the 'choice' column to kotak_2
 kotak_2['choice'] = choice
