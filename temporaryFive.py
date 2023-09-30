@@ -1,4 +1,5 @@
 import pandas as pd
+import itertools
 
 df = pd.read_csv("C:\\Users\\albar\\Documents\\GitHub\\dw-productsurvey\\conjoint_survey_ads.csv")
 ds = pd.read_csv("C:\\Users\\albar\\Documents\\GitHub\\dw-productsurvey\\conjoint_survey_organic.xlsx - Sheet1.csv")
@@ -32,6 +33,8 @@ df_2_q1 = pd.DataFrame({"opsi": ["A", "B", "C"],
                        "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
                        "harga_program": ["500.000", "350.000", "350.000"]})
 
+
+'''
 for index, row_kotak in kotak_2.iterrows():
     response = row_kotak["Responses"]
     match_found = False  # Flag to track if a match is found for this row
@@ -44,7 +47,14 @@ for index, row_kotak in kotak_2.iterrows():
         choice.append(1)
     else:
         choice.append(0)
+'''
 
+'''
+for y in range(len(df_2_q1['opsi'])):
+    for j in kotak_2['Responses']:
+        print(f"{df_2_q1[y]}, {kotak_2[j]}")
+'''
+        
 # Add the 'choice' column to kotak_2
 kotak_2['choice'] = choice
 
@@ -53,7 +63,8 @@ kotak_2.reset_index(drop=True, inplace=True)
 
 # Concatenate kotak_2 and df_2_q1
 final_result = pd.concat([kotak_2, df_2_q1], axis=1)
-print(final_result)
+
+#print(final_result)
 
 
 
