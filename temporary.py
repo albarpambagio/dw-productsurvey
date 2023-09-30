@@ -33,20 +33,40 @@ df_2_q1 = pd.DataFrame({"opsi" : ["A", "B", "C"],
           "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
           "harga_program": ["500.000", "350.000", "350.000"]})
         
+# Define the number of repetitions for each question
+repetitions = 3
+
+# Create a dictionary to keep track of the number of times each question has been checked
+question_counts = {question: 0 for question in question_order}
+
+# Loop through the rows in kotak_1
 for index, row_kotak in kotak_2.iterrows():
     response = row_kotak["Responses"]
-    # Check if the response exists in df_2_q1['opsi']
-    if response in df_2_q1['opsi'].values:
-        choice.append(1)
+    question = row_kotak["Questions"]
+    
+    # Check if the current question has been checked 3 times
+    if question_counts[question] < repetitions:
+        match_found = False  # Flag to track if a match is found for this row
+        for index, row_df in df_2_q1.iterrows():
+            opsi = row_df["opsi"]
+            if opsi in response.split(', '):  # Check if opsi is in the list of responses
+                choice.append(1)
+                match_found = True  # Set the flag to True if a match is found
+                break  # Exit the inner loop once a match is found
+        if not match_found:
+            choice.append(0)
+        # Update the count for the current question
+        question_counts[question] += 1
     else:
         choice.append(0)
+
+
 
 # Add the 'choice' column to kotak_2
 kotak_2['choice'] = choice
 
 # Reset indices of both dataframes
 kotak_2.reset_index(drop=True, inplace=True)
-df_2_q1.reset_index(drop=True, inplace=True)
 
 # Concatenate kotak_2 and df_2_q1
 final_result = pd.concat([kotak_2, df_2_q1], axis=1)
@@ -144,6 +164,21 @@ for index, row in kotak_2.iterrows():
     elif response == 'B':
         choice.append(1)
     elif response == 'C':
+        choice.append(1)
+    else:
+        choice.append(0)
+'''
+
+'''      
+for index, row_kotak in kotak_2.iterrows():
+    response = row_kotak["Responses"]
+    match_found = False  # Flag to track if a match is found for this row
+    for index, row_df in df_2_q1.iterrows():
+        opsi = row_df["opsi"]
+        if opsi in response.split(', '):  # Check if opsi is in the list of responses
+            match_found = True  # Set the flag to True if a match is found
+            break  # Exit the inner loop once a match is found
+    if match_found:
         choice.append(1)
     else:
         choice.append(0)
