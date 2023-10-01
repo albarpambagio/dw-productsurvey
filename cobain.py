@@ -28,60 +28,25 @@ kotak_2['Responses'] = kotak_2['Responses'].str.split(', ').apply(lambda x: ', '
 choice = []
 
 
-df_2_q1 = pd.DataFrame({ "skill" : ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation", ], 
+df_2_q1 = pd.DataFrame({ "skill" : ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"], 
           "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
           "harga_program": ["500.000", "350.000", "350.000"]})
         
 opsi_1 = ["A", "B", "C"]
 opsi_1_skill = ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"]
-opsi_n = {"A" : "Create Analytics Dashboard", "B": "Perform Customer Segmentation", "C":"Design AB Test Experimentation"}
-
-data_list = []
+opsi_n = {"A" : ["Create Analytics Dashboard", "Tutorial Based", "500.000"], "B": ["Perform Customer Segmentation", "Mentoring Based", "350.000"], "C":["Design AB Test Experimentation", "Mentoring Based", "350.000"]}
 
 
+              
 for index, kotak_aja in kotak_2.iterrows():
     opsi = kotak_aja['Responses'].split(', ')
     jenis = kotak_aja['Questions']
     identitas = kotak_aja['user_phone']
     for y in opsi_1:
         for key, value in opsi_n.items():
-            choice = 1 if y in opsi else 0
             if y in opsi:
                 if y == key:
-                    data = {
-                        'User_phone': identitas,
-                        'Choice': choice,
-                        'Soal': jenis,
-                        'Varian': y,
-                        'Jawaban': ', '.join(opsi)
-                    }
-                    data_list.append(data) 
-
-df_result = pd.DataFrame(data_list)
-result_1 = pd.concat([df_result, df_2_q1], axis=1)
-print(result_1)
-
-'''
-for index, kotak_aja in kotak_2.iterrows():
-    opsi = kotak_aja['Responses'].split(', ')
-    jenis = kotak_aja['Questions']
-    identitas = kotak_aja['user_phone']
-    for y in opsi_1:
-        for key, value in opsi_n.items():
-            choice = 1 if y in opsi else 0
-            if y in opsi:
-                if y == key:
-                    data = {
-                        'User_phone': identitas,
-                        'Choice': choice,
-                        'Soal': jenis,
-                        'Varian': y,
-                        'Jawaban': ', '.join(opsi)
-                        }  
-                    data_list.append(data)  # Append the dictionary to the list
-            # result = {"user_phone" : identitas, "choice" : 1, "skill" : skill, "bentuk_program": bentuk, harga_program": price,}
-            #print(f"1 {y} {opsi} {jenis} {identitas}")
-        #else:
-            
-            #print(f"0 {y} {opsi} {jenis} {identitas}")
-'''
+                    print(f"1 {y} {opsi} {jenis} {identitas} {value}")
+                else:
+                    print(f"0 {y} {opsi} {jenis} {identitas} {value}")
+      
