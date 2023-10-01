@@ -44,7 +44,6 @@ kotak_2 = kotak_1.sort_values(by=["user_phone", "Questions"])
 kotak_2["Responses"].replace({"D. Tidak memilih semua product": "D"}, inplace=True)
 kotak_2['Responses'] = kotak_2['Responses'].str.split(', ').apply(lambda x: ', '.join(x))
 
-# Define empty 'choice' list (not used in the code)
 
 # Create a DataFrame 'df_2_q1' with specific data
 df_2_q1 = pd.DataFrame({
@@ -53,9 +52,7 @@ df_2_q1 = pd.DataFrame({
     "harga_program": ["500.000", "350.000", "350.000"]
 })
 
-# Define 'opsi_1' list and 'opsi_n' dictionary (not used in the code)
-
-# Define dictionaries containing options for each question
+# Define 'opsi_1' list and 'opsi_n' dictionary 
 opsi_1 = ["A", "B", "C"]
 opsi_n_soal_1 = {
     "A": ["Create Analytics Dashboard", "Tutorial Based", "500.000"],
@@ -63,7 +60,7 @@ opsi_n_soal_1 = {
     "C": ["Design AB Test Experimentation", "Mentoring Based", "350.000"]
 }
 
-# ... (similar dictionaries defined for questions 2 to 10)
+# Define dictionaries containing options for each question
 opsi_n_soal_1 = {"A" : ["Create Analytics Dashboard", "Tutorial Based", "500.000"], "B": ["Perform Customer Segmentation", "Mentoring Based", "350.000"], "C":["Design AB Test Experimentation", "Mentoring Based", "350.000"]}
 opsi_n_soal_2 = {"A" : ["Create Analytics Dashboard", "Tutorial Based", "500.000"], "B": ["Design Data Pipeline", "Mentoring Based", "300.000"], "C":["Perform Credit Scoring Analytics", "Mentoring Based", "550.000"]}
 opsi_n_soal_3 = {"A" : ["Perform Credit Scoring Analytics", "Mentoring Based", "350.000"], "B": ["Perform Customer Segmentation", "Tutorial Based", "450.000"], "C":["Design Data Pipeline", "Mentoring Based", "250.000"]}
