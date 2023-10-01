@@ -59,7 +59,11 @@ jenis_to_opsi_n = {
     'soal_10': opsi_n_soal_10,
 }
 
+column_names = ["User_Phone", "Choice", "skill, bentuk_program, harga_program"]
+
 output_lines = []
+
+output_lines.append(",".join(column_names))
 
 for index, kotak_aja in kotak_2.iterrows():
     opsi = kotak_aja['Responses'].split(', ')
@@ -71,13 +75,13 @@ for index, kotak_aja in kotak_2.iterrows():
             if y in opsi:
                 if y == key:
                     #print(f"1 {y} {opsi} {jenis} {identitas} {value}")
-                    output_lines.append(f"1 {y} {opsi} {jenis} {identitas} {value}")
+                    output_lines.append(f"{identitas} 1 {value}")
                 else:
                     #print(f"0 {y} {opsi} {jenis} {identitas} {value}")
-                    output_lines.append(f"0 {y} {opsi} {jenis} {identitas} {value}")
+                    output_lines.append(f"{identitas} 0 {value}")
 
 
-csv_file_path = r"C:\Users\albar\Documents\GitHub\dw-productsurvey\Output\output.csv"
+csv_file_path = r"C:\Users\albar\Documents\GitHub\dw-productsurvey\Output\output(1).csv"
 
 
 with open(csv_file_path, "w") as csv_file:
