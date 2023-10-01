@@ -1,8 +1,0 @@
-• Daftar Skill: Create Analytics Dashboard, Create Machine Learning Model, Deploy
-Machine Learning Model, Design AB Test Experimentation, Perform Customer
-Lifetime Analysis, Perform Churn Analytics, Perform Credit Scoring Analytics,
-Perform Customer Segmentation, Perform Price Optimization, dan Design Data
-Pipeline
-• Bentuk Program: Tutorial Based dan Mentoring Based
-Harga Program: Rp 250.000,0, Rp 300.000,0, Rp 350.000,0, Rp 400.000,0, Rp
-450.000,0, R 500.000,0, R 550.000,0
