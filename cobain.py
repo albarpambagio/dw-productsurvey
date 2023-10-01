@@ -33,20 +33,54 @@ df_2_q1 = pd.DataFrame({ "skill" : ["Create Analytics Dashboard", "Perform Custo
           "harga_program": ["500.000", "350.000", "350.000"]})
         
 opsi_1 = ["A", "B", "C"]
-opsi_1_skill = ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"]
-opsi_n = {"A" : ["Create Analytics Dashboard", "Tutorial Based", "500.000"], "B": ["Perform Customer Segmentation", "Mentoring Based", "350.000"], "C":["Design AB Test Experimentation", "Mentoring Based", "350.000"]}
+opsi_n = {"A" : "Create Analytics Dashboard", "B": "Perform Customer Segmentation", "C":"Design AB Test Experimentation"}
 
+opsi_n_soal_1 = {"A" : ["Create Analytics Dashboard", "Tutorial Based", "500.000"], "B": ["Perform Customer Segmentation", "Mentoring Based", "350.000"], "C":["Design AB Test Experimentation", "Mentoring Based", "350.000"]}
+opsi_n_soal_2 = {"A" : ["Create Analytics Dashboard", "Tutorial Based", "500.000"], "B": ["Design Data Pipeline", "Mentoring Based", "300.000"], "C":["Perform Credit Scoring Analytics", "Mentoring Based", "550.000"]}
+opsi_n_soal_3 = {"A" : ["Perform Credit Scoring Analytics", "Mentoring Based", "350.000"], "B": ["Perform Customer Segmentation", "Tutorial Based", "450.000"], "C":["Design Data Pipeline", "Mentoring Based", "250.000"]}
+opsi_n_soal_4 = {"A" : ["Design AB Test Experimentation", "Mentoring Based", "500.000"], "B": ["Perform Price Optimization", "Mentoring Based", "350.000"], "C":["Perform Credit Scoring Analytics", "Mentoring Based", "350.000"]}
+opsi_n_soal_5 = {"A" : ["Design Data Pipeline", "Mentoring Based", "400.000"], "B": ["Perform Customer Lifetime Analysis", "Tutorial Based", "300.000"], "C":["Design AB Test Experimentation", "Tutorial Based", "300.000"]}
+opsi_n_soal_6 = {"A" : ["Perform Churn Analytics", "Tutorial Based", "450.000"], "B": ["Perform Customer Segmentation", "Mentoring Based", "300.000"], "C":["Create Machine Learning Model", "Mentoring Based", "550.000"]}
+opsi_n_soal_7 = {"A" : ["Perform Customer Lifetime Analysis", "Tutorial Based", "500.000"], "B": ["Design Data Pipeline", "Mentoring Based", "550.000"], "C":["Deploy Machine Learning Model", "Tutorial Based", "350.000"]}
+opsi_n_soal_8 = {"A" : ["Perform Credit Scoring Analytics", "Mentoring Based", "300.000"], "B": ["Design Data Pipeline", "Mentoring Based", "550.000"], "C":["Create Machine Learning Model", "Tutorial Based", "350.000"]}
+opsi_n_soal_9 = {"A" : ["Create Analytics Dashboard", "Mentoring Based", "250.000"], "B": ["Design AB Test Experimentation", "Tutorial Based", "550.000"], "C":["Perform Customer Lifetime Analysis", "Tutorial Based", "350.000"]}
+opsi_n_soal_10 = {"A" : ["Perform Credit Scoring Analytics", "Mentoring Based", "400.000"], "B": ["Perform Churn Analytics", "Mentoring Based", "450.000"], "C":["Perform Churn Analytics", "Tutorial Based", "500.000"]}
 
-              
+jenis_to_opsi_n = {
+    'soal_1': opsi_n_soal_1,
+    'soal_2': opsi_n_soal_2,
+    'soal_3': opsi_n_soal_3,
+    'soal_4': opsi_n_soal_4,
+    'soal_5': opsi_n_soal_5,
+    'soal_6': opsi_n_soal_6,
+    'soal_7': opsi_n_soal_7,
+    'soal_8': opsi_n_soal_8,
+    'soal_9': opsi_n_soal_9,
+    'soal_10': opsi_n_soal_10,
+}
+
+output_lines = []
+
 for index, kotak_aja in kotak_2.iterrows():
     opsi = kotak_aja['Responses'].split(', ')
     jenis = kotak_aja['Questions']
     identitas = kotak_aja['user_phone']
+    current_opsi_n = jenis_to_opsi_n.get(jenis, {})
     for y in opsi_1:
-        for key, value in opsi_n.items():
+        for key, value in current_opsi_n.items():
             if y in opsi:
                 if y == key:
-                    print(f"1 {y} {opsi} {jenis} {identitas} {value}")
+                    #print(f"1 {y} {opsi} {jenis} {identitas} {value}")
+                    output_lines.append(f"1 {y} {opsi} {jenis} {identitas} {value}")
                 else:
-                    print(f"0 {y} {opsi} {jenis} {identitas} {value}")
-      
+                    #print(f"0 {y} {opsi} {jenis} {identitas} {value}")
+                    output_lines.append(f"0 {y} {opsi} {jenis} {identitas} {value}")
+
+
+csv_file_path = r"C:\Users\albar\Documents\GitHub\dw-productsurvey\Output\output.csv"
+
+
+with open(csv_file_path, "w") as csv_file:
+    csv_file.write("\n".join(output_lines))
+
+print(f"Output written to {csv_file_path}")
