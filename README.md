@@ -15,9 +15,7 @@ This Python script is designed to process survey data collected in CSV format, p
 ## Usage
 
 1. Clone this repository to your local machine.
-2. Place your survey CSV files in the "data" directory.
-3. Update the code as needed to match your survey structure and response options.
-4. Run the Python script `main.py`.
-5. The cleaned survey data will be saved as `clean_data.csv` in the "Output" directory.
+2. Run the Python script `main.py`.
+3. The cleaned survey data will be saved as `clean_data.csv` in the "Output" directory.
 
 
