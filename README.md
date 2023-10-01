@@ -1,4 +1,4 @@
-# Data Survey Processing Tool
+# Survey Data Processing Tool
 
 This Python script is designed to process survey data collected in CSV format, perform data transformations, and generate a clean output in CSV format. It is particularly useful for surveys with multiple-choice questions and can be customized to fit various survey structures.
 
