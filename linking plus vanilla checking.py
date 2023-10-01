@@ -36,7 +36,7 @@ opsi_1 = ["A", "B", "C"]
 opsi_1_skill = ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"]
 opsi_n = {"A" : "Create Analytics Dashboard", "B": "Perform Customer Segmentation", "C":"Design AB Test Experimentation"}
 
-
+result = []
 
               
 for index, kotak_aja in kotak_2.iterrows():
@@ -45,6 +45,11 @@ for index, kotak_aja in kotak_2.iterrows():
     identitas = kotak_aja['user_phone']
     for y in opsi_1:
         if y in opsi:
-            print(f"1 {y} {opsi} {jenis} {identitas}")
+            result.extend(['1', identitas, y, opsi])
+            #print(f"1 {y} {opsi} {jenis} {identitas}")
         else:
-            print(f"0 {y} {opsi} {jenis} {identitas}")
+            result.extend(['0', identitas, y, opsi])
+            #print(f"0 {y} {opsi} {jenis} {identitas}")
+
+vertical = pd.DataFrame({"coba":result})
+print(vertical)
