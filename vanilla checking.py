@@ -47,26 +47,7 @@ for index, kotak_aja in kotak_2.iterrows():
         for key, value in opsi_n.items():
             if y in opsi:
                 if y == key:
-                    print(f"1 {y} {opsi} {jenis} {identitas} {value}")
+                    print(f"1 {y} {opsi} {jenis} {identitas}")
                 else:
-                    print(f"0 {y} {opsi} {jenis} {identitas} {value}")
+                    print(f"0 {y} {opsi} {jenis} {identitas}")
       
-
-
-
-#final_output = pd.Dataframe({"user_phone" : [identitas]} dst)
-#sorted by questions
-'''
-for index, kotak_aja in kotak_2.iterrows():
-    opsi = kotak_aja['Responses'].split(', ')
-    jenis = kotak_aja['Questions']
-    identitas = kotak_aja['user_phone']
-    for y in opsi_n.keys():
-        for x in opsi_n.values():
-            if y in opsi:
-                print(f"1 {y} {opsi} {jenis} {identitas} {x}")
-                #final_output = pd.Dataframe({"user_phone" : [identitas]} dst)
-                #sorted by questions
-            else:
-                print(f"0 {y} {opsi} {jenis} {identitas} {x}")
-'''
