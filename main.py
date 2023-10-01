@@ -10,12 +10,17 @@ ds = pd.read_csv("data\conjoint_survey_organic.xlsx - Sheet1.csv")
 result = pd.concat([df, ds], ignore_index=True)
 
 # Rename columns in the resulting DataFrame 'result' for clarity
-renaming = result.rename(columns={
-    '1. Produk manakah yang akan anda beli? (Anda bisa memilih membeli (klik) lebih dari 1 pilihan)': 'soal_1',
-    '2. Produk manakah yang akan anda beli? (Anda bisa memilih membeli (klik) lebih dari 1 pilihan)': 'soal_2',
-    # ... (and so on for columns 3 to 10)
-    'Berapa nomer telepon anda? Nomer ini akan digunakan untuk membagikan GoPay Rp 50.000 per orang, hasil undian untuk 100 orang. Kami hanya akan mengirimkan ke pengisi kuisioner yang valid, i.e. jawaban tidak random.': 'user_phone'
-})
+renaming = result.rename(columns= {'1. Produk manakah yang akan anda beli? (Anda bisa memilih membeli (klik) lebih dari 1 pilihan)' : 'soal_1',
+       '2. Produk manakah yang akan anda beli? (Anda bisa memilih membeli (klik) lebih dari 1 pilihan)' : 'soal_2' ,
+       '3. Produk manakah yang akan anda beli? (Anda bisa memilih membeli (klik) lebih dari 1 pilihan)' : 'soal_3',
+       '4. Produk manakah yang akan anda beli? (Anda bisa memilih membeli (klik) lebih dari 1 pilihan)' : 'soal_4',
+       '5. Produk manakah yang akan anda beli? (Anda bisa memilih membeli (klik) lebih dari 1 pilihan)' : 'soal_5',
+       '6. Produk manakah yang akan anda beli? (Anda bisa memilih membeli (klik) lebih dari 1 pilihan)' : 'soal_6',
+       '7. Produk manakah yang akan anda beli? (Anda bisa memilih membeli (klik) lebih dari 1 pilihan)' : 'soal_7',
+       '8. Produk manakah yang akan anda beli? (Anda bisa memilih membeli (klik) lebih dari 1 pilihan)' : 'soal_8',
+       '9. Produk manakah yang akan anda beli? (Anda bisa memilih membeli (klik) lebih dari 1 pilihan)' : 'soal_9',
+       '10. Produk manakah yang akan anda beli? (Anda bisa memilih membeli (klik) lebih dari 1 pilihan)' : 'soal_10',
+       'Berapa nomer telepon anda? Nomer ini akan digunakan untuk membagikan GoPay Rp 50.000 per orang, hasil undian untuk 100 orang. Kami hanya akan mengirimkan ke pengisi kuisioner yang valid, i.e. jawaban tidak random.' : 'user_phone'})
 
 # Drop the "Timestamp" column from the DataFrame
 renaming_2 = renaming.drop(columns="Timestamp")
@@ -112,7 +117,7 @@ for index, kotak_aja in kotak_2.iterrows():
                     output_lines.append(f"{identitas},0,{value}")
 
 # Specify the path for the output CSV file
-csv_file_path = r"C:\Users\albar\Documents\GitHub\dw-productsurvey\Output\clean_data.csv"
+csv_file_path = r"Output\clean_data.csv"
 
 # Write the output lines to the CSV file
 with open(csv_file_path, "w") as csv_file:
