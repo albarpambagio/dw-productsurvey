@@ -59,7 +59,7 @@ jenis_to_opsi_n = {
     'soal_10': opsi_n_soal_10,
 }
 
-column_names = ["User_Phone", "Choice", "skill, bentuk_program, harga_program"]
+column_names = ["User_Phone", "Choice", "skill bentuk_program harga_program"]
 
 output_lines = []
 
@@ -81,7 +81,7 @@ for index, kotak_aja in kotak_2.iterrows():
                     output_lines.append(f"{identitas} 0 {value}")
 
 
-csv_file_path = r"C:\Users\albar\Documents\GitHub\dw-productsurvey\Output\output(1).csv"
+csv_file_path = r"C:\Users\albar\Documents\GitHub\dw-productsurvey\Output\clean version.csv"
 
 
 with open(csv_file_path, "w") as csv_file:
