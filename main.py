@@ -1,7 +1,7 @@
 import pandas as pd
 
-df = pd.read_csv("C:\\Users\\albar\\Documents\\GitHub\\dw-productsurvey\\conjoint_survey_ads.csv")
-ds = pd.read_csv("C:\\Users\\albar\\Documents\\GitHub\\dw-productsurvey\\conjoint_survey_organic.xlsx - Sheet1.csv")
+df = pd.read_csv("data\conjoint_survey_ads.csv")
+ds = pd.read_csv("data\conjoint_survey_organic.xlsx - Sheet1.csv")
 
 result = pd.concat([df, ds], ignore_index=True)
 renaming = result.rename(columns= {'1. Produk manakah yang akan anda beli? (Anda bisa memilih membeli (klik) lebih dari 1 pilihan)' : 'soal_1',
@@ -28,115 +28,63 @@ kotak_2['Responses'] = kotak_2['Responses'].str.split(', ').apply(lambda x: ', '
 choice = []
 
 
-df_2_q1 = pd.DataFrame({"opsi" : ["A", "B", "C"],
-          "skill" : ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"], 
+df_2_q1 = pd.DataFrame({ "skill" : ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"], 
           "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
           "harga_program": ["500.000", "350.000", "350.000"]})
         
-for i in range(len(df_2_q1['opsi'])):
-    for index, row_kotak in kotak_2.iterrows():
-        response = row_kotak['Responses']
-        if response == i:
-            choice.append(1)
-        else:
-            choice.append(0)
+opsi_1 = ["A", "B", "C"]
+opsi_n = {"A" : "Create Analytics Dashboard", "B": "Perform Customer Segmentation", "C":"Design AB Test Experimentation"}
 
-kotak_2['choice'] = choice
-final_output = [kotak_2, df_2_q1]
-final_result = pd.concat(final_output)
-print(final_result)
+opsi_n_soal_1 = {"A" : ["Create Analytics Dashboard", "Tutorial Based", "500.000"], "B": ["Perform Customer Segmentation", "Mentoring Based", "350.000"], "C":["Design AB Test Experimentation", "Mentoring Based", "350.000"]}
+opsi_n_soal_2 = {"A" : ["Create Analytics Dashboard", "Tutorial Based", "500.000"], "B": ["Design Data Pipeline", "Mentoring Based", "300.000"], "C":["Perform Credit Scoring Analytics", "Mentoring Based", "550.000"]}
+opsi_n_soal_3 = {"A" : ["Perform Credit Scoring Analytics", "Mentoring Based", "350.000"], "B": ["Perform Customer Segmentation", "Tutorial Based", "450.000"], "C":["Design Data Pipeline", "Mentoring Based", "250.000"]}
+opsi_n_soal_4 = {"A" : ["Design AB Test Experimentation", "Mentoring Based", "500.000"], "B": ["Perform Price Optimization", "Mentoring Based", "350.000"], "C":["Perform Credit Scoring Analytics", "Mentoring Based", "350.000"]}
+opsi_n_soal_5 = {"A" : ["Design Data Pipeline", "Mentoring Based", "400.000"], "B": ["Perform Customer Lifetime Analysis", "Tutorial Based", "300.000"], "C":["Design AB Test Experimentation", "Tutorial Based", "300.000"]}
+opsi_n_soal_6 = {"A" : ["Perform Churn Analytics", "Tutorial Based", "450.000"], "B": ["Perform Customer Segmentation", "Mentoring Based", "300.000"], "C":["Create Machine Learning Model", "Mentoring Based", "550.000"]}
+opsi_n_soal_7 = {"A" : ["Perform Customer Lifetime Analysis", "Tutorial Based", "500.000"], "B": ["Design Data Pipeline", "Mentoring Based", "550.000"], "C":["Deploy Machine Learning Model", "Tutorial Based", "350.000"]}
+opsi_n_soal_8 = {"A" : ["Perform Credit Scoring Analytics", "Mentoring Based", "300.000"], "B": ["Design Data Pipeline", "Mentoring Based", "550.000"], "C":["Create Machine Learning Model", "Tutorial Based", "350.000"]}
+opsi_n_soal_9 = {"A" : ["Create Analytics Dashboard", "Mentoring Based", "250.000"], "B": ["Design AB Test Experimentation", "Tutorial Based", "550.000"], "C":["Perform Customer Lifetime Analysis", "Tutorial Based", "350.000"]}
+opsi_n_soal_10 = {"A" : ["Perform Credit Scoring Analytics", "Mentoring Based", "400.000"], "B": ["Perform Churn Analytics", "Mentoring Based", "450.000"], "C":["Perform Churn Analytics", "Tutorial Based", "500.000"]}
 
+jenis_to_opsi_n = {
+    'soal_1': opsi_n_soal_1,
+    'soal_2': opsi_n_soal_2,
+    'soal_3': opsi_n_soal_3,
+    'soal_4': opsi_n_soal_4,
+    'soal_5': opsi_n_soal_5,
+    'soal_6': opsi_n_soal_6,
+    'soal_7': opsi_n_soal_7,
+    'soal_8': opsi_n_soal_8,
+    'soal_9': opsi_n_soal_9,
+    'soal_10': opsi_n_soal_10,
+}
 
-'''
-for index, row_kotak in kotak_2.iterrows():
-    response = row_kotak["Responses"]
-    match_found = False  # Flag to track if a match is found for this row
-    for index, row_df in df_2_q1.iterrows():
-        opsi = row_df["opsi"]
-        if response == opsi:
-            choice.append(1)
-            match_found = True  # Set the flag to True if a match is found
-            break  # Exit the inner loop once a match is found
-    if not match_found:
-        choice.append(0) 
-'''
+column_names = ["User_Phone", "Choice", "Skill", "Bentuk_Program", "Harga_Program"]
 
-# merge = pd.concat([kotak_2, df_2_q1])
-'''
-for x in kotak_2.iterrows():
-    if x["Responses"] == 'A':
-        wadah.append(1)
-    elif x["Responses"] == 'B':
-        wadah.append(1)
-    elif x["Responses"] == 'C':
-        wadah.append(1)
-    else:
-        wadah.append(0)
-'''
+output_lines = []
 
-# Use DataFrame.transpose().iterrows()
-'''
-for (column_name, column) in df.transpose().iterrows():
-    print (column_name)
-'''
+output_lines.append(",".join(column_names))
 
-
-"""
-# variasi opsi soal 1
-# soalSatu = {"skill" : "", "bentuk_program": "","harga_program": ""}
-soalSatuA = {"skill" : "Create Analytics Dashboard", "bentuk_program": "Tutorial Based","harga_program": "500.000"}
-soalSatuB = {"skill" : "Perform Customer Segmentation", "bentuk_program": "Mentoring Based","harga_program": "350.000"}
-soalSatuC = {"skill" : "Design AB Test Experimentation", "bentuk_program": "Mentoring Based","harga_program": "300.000"}
-
-soalSatuA = {"skill" : "Create Analytics Dashboard", "bentuk_program": "Tutorial Based","harga_program": "500.000"}
-
-"""
-'''
-df_2_q1 = pd.DataFrame({"skill" : ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"], 
-          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
-          "harga_program": ["500.000", "350.000", "350.000"]})
+for index, kotak_aja in kotak_2.iterrows():
+    opsi = kotak_aja['Responses'].split(', ')
+    jenis = kotak_aja['Questions']
+    identitas = kotak_aja['user_phone']
+    current_opsi_n = jenis_to_opsi_n.get(jenis, {})
+    for y in opsi_1:
+        for key, value in current_opsi_n.items():
+            if y in opsi:
+                if y == key:
+                    #print(f"1 {y} {opsi} {jenis} {identitas} {value}")
+                    output_lines.append(f"{identitas},1,{value}")
+                else:
+                    #print(f"0 {y} {opsi} {jenis} {identitas} {value}")
+                    output_lines.append(f"{identitas},0,{value}")
 
 
-df_2_q1 = pd.DataFrame({"skill" : ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"], 
-          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
-          "harga_program": ["500.000", "350.000", "350.000"]})
-
-df_2_q2 = pd.DataFrame({"skill" : ["Create Analytics Dashboard", "Design Data Pipeline", "Perform Customer Segmentation"], 
-          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
-          "harga_program": ["500.000", "300.000", "550.000"]})
-
-df_2_q3 = pd.DataFrame({"skill" : ["Perform Customer Segmentation", "Design Data Pipeline", "Perform Customer Segmentation"], 
-          "bentuk_program": ["Tutorial Based", "Mentoring Based", "Mentoring Based"],
-          "harga_program": ["500.000", "300.000", "550.000"]})
-'''
-
-"""
-soalSatuA = ["Create Analytics Dashboard", "Tutorial Based", "500.000"]
-soalSatuB = ["Perform Customer Segmentation", "Mentoring Based", "350.000"]
-soalSatuC = ["Design AB Test Experimentation", "Mentoring Based", "300.000"]
-"""
+csv_file_path = r"C:\Users\albar\Documents\GitHub\dw-productsurvey\Output\clean_version(1).csv"
 
 
-"""
-jenis_program_satu = ["Create Analytics Dashboard", "Perform Customer Segmentation", "Design AB Test Experimentation"]
-metode_program_satu = ["Tutorial Based", "Mentoring Based", "Mentoring Based"]
-harga_program_satu = ["500.000", "350.000", "300.000"]
-"""
+with open(csv_file_path, "w") as csv_file:
+    csv_file.write("\n".join(output_lines))
 
-'''
-nested_df_2_q1 = pd.DataFrame({"A" : [{"skill" : "Create Analytics Dashboard"}, {"bentuk_program": "Tutorial Based"}, {"harga_program" : "500.000"}], 
-                               "B" : [{"skill" : "Perform Customer Segmentation"}, {"bentuk_program": "Mentoring Based"}, {"harga_program" : "350.000"}], 
-                               "C" : [{"skill" : "Design AB Test Experimentation"}, {"bentuk_program": "Mentoring Based"}, {"harga_program" : "300.000"}]
-                                      })
-                                      
-for index, row in kotak_2.iterrows():
-    response = row["Responses"]
-    if 'A' in response or 'A, B' in response or 'A, C' in response:
-        choice.append(1)
-    elif response == 'B':
-        choice.append(1)
-    elif response == 'C':
-        choice.append(1)
-    else:
-        choice.append(0)
-'''
+print(f"Output written to {csv_file_path}")
