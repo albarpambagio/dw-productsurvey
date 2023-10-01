@@ -37,11 +37,13 @@ opsi_1 = ["A", "B", "C"]
 
 for index, kotak_aja in kotak_2.iterrows():
     opsi = kotak_aja['Responses'].split(', ')
+    jenis = kotak_aja['Questions']
+    identitas = kotak_aja['user_phone']
     for y in opsi_1:
         if y in opsi:
-            print(f"1 {y} {opsi}")
+            print(f"1 {y} {opsi} {jenis} {identitas}")
         else:
-            print(f"0 {y} {opsi}")
+            print(f"0 {y} {opsi} {jenis} {identitas}")
 
 # Add the 'choice' column to kotak_2
 #kotak_2['choice'] = choice
