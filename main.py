@@ -112,7 +112,7 @@ for index, kotak_aja in kotak_2.iterrows():
                     output_lines.append(f"{identitas},0,{value}")
 
 # Specify the path for the output CSV file
-csv_file_path = r"C:\Users\albar\Documents\GitHub\dw-productsurvey\Output\clean_version(3).csv"
+csv_file_path = r"C:\Users\albar\Documents\GitHub\dw-productsurvey\Output\clean_data.csv"
 
 # Write the output lines to the CSV file
 with open(csv_file_path, "w") as csv_file:
